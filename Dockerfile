@@ -7,14 +7,15 @@ COPY build.gradle.kts .
 COPY settings.gradle.kts .
 COPY gradlew .
 
-RUN ./gradlew --no-daemon dependencies
+#RUN ./gradlew --no-daemon dependencies
 
 COPY /app .
 #COPY config config
 
-RUN ./gradlew --no-daemon build
+#RUN ./gradlew --no-daemon build
+RUN gradle installDist
 
-ENV JAVA_OPTS "-Xmx512M -Xms512M"
+#ENV JAVA_OPTS "-Xmx512M -Xms512M"
 EXPOSE 7070
 
 CMD java -jar build/libs/app-1.0-SNAPSHOT.jar

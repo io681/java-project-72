@@ -21,6 +21,7 @@ dependencies {
     implementation("io.javalin:javalin:5.6.2")
     implementation("com.zaxxer:HikariCP:5.1.0")
     implementation("com.h2database:h2:2.2.222")
+    implementation("org.postgresql:postgresql:42.6.0")
 
     testImplementation("org.assertj:assertj-core:3.24.2")
     testImplementation(platform("org.junit:junit-bom:5.9.1"))

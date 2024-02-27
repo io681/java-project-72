@@ -19,6 +19,12 @@ public class App {
         var hikariConfig = new HikariConfig();
         String jdbcUrl = System.getenv().getOrDefault("JDBC_DATABASE_URL", "jdbc:h2:mem:project");
         hikariConfig.setJdbcUrl(jdbcUrl);
+        if (!jdbcUrl.equals("jdbc:h2:mem:project")) {
+            String username = System.getenv("JDBC_DATABASE_USERNAME");
+            String password = System.getenv("JDBC_DATABASE_PASSWORD");
+            hikariConfig.setUsername(username);
+            hikariConfig.setPassword(password);
+        }
 
         var dataSource = new HikariDataSource(hikariConfig);
         var sql = readResourceFile("schema.sql");

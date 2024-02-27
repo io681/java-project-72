@@ -19,6 +19,8 @@ repositories {
 dependencies {
     implementation("org.slf4j:slf4j-simple:2.0.9")
     implementation("io.javalin:javalin:5.6.2")
+    implementation("com.zaxxer:HikariCP:5.1.0")
+    implementation("com.h2database:h2:2.2.222")
 
     testImplementation("org.assertj:assertj-core:3.24.2")
     testImplementation(platform("org.junit:junit-bom:5.9.1"))

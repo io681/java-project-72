@@ -6,3 +6,6 @@
 
 ### Codeclimate Maintainability:
 [![Maintainability](https://api.codeclimate.com/v1/badges/5ae2ed4efca99d8d591e/maintainability)](https://codeclimate.com/github/io681/java-project-72/maintainability)
+
+### Codeclimate Test Coverage:
+[![Test Coverage](https://api.codeclimate.com/v1/badges/5ae2ed4efca99d8d591e/test_coverage)](https://codeclimate.com/github/io681/java-project-72/test_coverage)

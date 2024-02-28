@@ -8,7 +8,9 @@ import org.junit.jupiter.api.Test;
 import java.io.IOException;
 import java.sql.SQLException;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class AppTest {
     Javalin app;

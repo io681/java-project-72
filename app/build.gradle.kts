@@ -5,6 +5,7 @@ plugins {
 //    id("java")
     id("checkstyle")
     application
+    jacoco
     id("io.freefair.lombok") version "8.4"
     id("com.github.johnrengelman.shadow") version "8.1.1"
 }
@@ -41,8 +42,12 @@ tasks.test {
         // showCauses = true
         showStandardStreams = true
     }
+
+    finalizedBy(tasks.jacocoTestReport)
 }
 
 application {
     mainClass.set("hexlet.code.App")
 }
+
+tasks.jacocoTestReport { reports { xml.required.set(true) } }

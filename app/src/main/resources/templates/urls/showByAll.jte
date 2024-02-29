@@ -1,14 +1,17 @@
 @import hexlet.code.dto.urls.UrlsPage
+@import hexlet.code.utils.TimestampFormatter
+@import hexlet.code.utils.NamedRoutes
 @param UrlsPage page
 
 @template.layout.page(
 page = page,
 content = @`
-    <a>Сайты</a>
+    <h2>Сайты</h2>
     @for(var url : page.getUrls())
         <div>
-            <p>${url.getId()}</p>
-            <h2><a href="/">${url.getName()}</a></h2>
+            <h4>${url.getId()}</h4>
+            <h4><a href="${NamedRoutes.showUrlById(url.getId())}">${url.getName()}</a></h4>
+            <h4>${TimestampFormatter.getTimeStampToString(url.getCreatedAt())}</h4>
         </div>
     @endfor
 `,

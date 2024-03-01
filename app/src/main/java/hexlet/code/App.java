@@ -46,13 +46,14 @@ public class App {
 
         JavalinJte.init(createTemplateEngine());
 
-        //Rendering pages
+        //Rendering front pages
         app.get(NamedRoutes.rootPath(), UrlsControllerFront::showMainPage);
         app.get(NamedRoutes.allUrlsPath(), UrlsControllerFront::showAllUrls);
         app.get(NamedRoutes.showUrlById("{id}"), UrlsControllerFront::showUrlById);
 
         //Back
-        app.post(NamedRoutes.allUrlsPath(), UrlsControllerBack::create);
+        app.post(NamedRoutes.allUrlsPath(), UrlsControllerBack::createUrl);
+        app.post(NamedRoutes.checkPathById("{id}"), UrlsControllerBack::checkUrl);
 
         return app;
     }

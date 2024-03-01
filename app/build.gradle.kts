@@ -7,6 +7,7 @@ plugins {
     jacoco
     id("io.freefair.lombok") version "8.4"
     id("com.github.johnrengelman.shadow") version "8.1.1"
+    id("com.github.ben-manes.versions") version "0.47.0"
 }
 
 group = "hexlet.code"
@@ -25,6 +26,7 @@ dependencies {
     implementation("gg.jte:jte:3.1.0")
     implementation("io.javalin:javalin-bundle:5.6.2")
     implementation("io.javalin:javalin-rendering:5.6.2")
+    implementation("com.konghq:unirest-java:3.14.5")
 
     testImplementation("org.assertj:assertj-core:3.24.2")
     testImplementation(platform("org.junit:junit-bom:5.9.1"))

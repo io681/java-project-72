@@ -15,4 +15,12 @@ public class NamedRoutes {
     public static String showUrlById(Long id) {
         return "/urls/" + id;
     }
+
+    public static String checkPathById(String id) {
+        return "/urls/" + id + "/checks";
+    }
+
+    public static String checkPathById(Long id) {
+        return "/urls/" + id + "/checks";
+    }
 }

@@ -27,6 +27,7 @@ dependencies {
     implementation("io.javalin:javalin-bundle:5.6.2")
     implementation("io.javalin:javalin-rendering:5.6.2")
     implementation("com.konghq:unirest-java:3.14.5")
+    implementation ("org.jsoup:jsoup:1.17.2")
 
     testImplementation("org.assertj:assertj-core:3.24.2")
     testImplementation(platform("org.junit:junit-bom:5.9.1"))

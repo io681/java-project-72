@@ -11,5 +11,5 @@ import java.util.List;
 @Setter
 public class UrlPage {
     private Url url;
-    private List<UrlCheck> urlCheck;
+    private List<UrlCheck> urlChecks;
 }

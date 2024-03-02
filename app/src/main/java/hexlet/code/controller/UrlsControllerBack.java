@@ -4,8 +4,12 @@ import hexlet.code.models.Url;
 import hexlet.code.models.UrlCheck;
 import hexlet.code.repositories.UrlCheckRepository;
 import hexlet.code.repositories.UrlRepository;
+import hexlet.code.utils.TimestampFormatter;
 import io.javalin.http.Context;
 import io.javalin.validation.ValidationException;
+import kong.unirest.Unirest;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 
 import java.net.MalformedURLException;
 import java.net.URI;
@@ -47,19 +51,34 @@ public class UrlsControllerBack {
     }
 
     public static void checkUrl(Context ctx) throws SQLException {
-        String id = ctx.pathParam("id");
-        Url url = UrlRepository.find(Long.valueOf(id)).get();
-//        var urlCheck= ctx.formParam("urlCheck");
+        Long id = ctx.pathParamAsClass("id", Long.class).get();
+        Url url = UrlRepository.find(id).get();
+
+        int statusCode = Unirest.get(url.getName()).asJson().getStatus();
+        String bodyByUrl = Unirest.get(url.getName()).asString().getBody();
+
+        Document doc = Jsoup.parse(bodyByUrl);
+        String title = doc.title();
+        String h1 = "";
+        try {
+            h1 = doc.selectFirst("h1").toString();
+        } catch (NullPointerException exc) {
+            h1 = "empty h1";
+        }
+        //здесь бывает null
+        String description = doc.selectFirst("meta[name=description ]").attr("content");
 
         var urlCheckModel = new UrlCheck();
-        urlCheckModel.setStatusCode(200);
-        urlCheckModel.setTitle("title");
-        urlCheckModel.setH1("h1");
-        urlCheckModel.setDescription("Description");
-        urlCheckModel.setUrlId(url.getId());
-        urlCheckModel.setCreatedAt(url.getCreatedAt());
 
-        UrlCheckRepository.saveCheck(urlCheckModel);
+        urlCheckModel.setStatusCode(statusCode);
+        urlCheckModel.setTitle(title);
+        urlCheckModel.setH1(h1);
+        urlCheckModel.setDescription(description);
+        urlCheckModel.setUrlId(url.getId());
+        urlCheckModel.setCreatedAt(TimestampFormatter.getCurrentTimeStamp());
+
+        UrlCheckRepository.runCheck(urlCheckModel);
+
         ctx.redirect("/urls/" + id);
     }
 }

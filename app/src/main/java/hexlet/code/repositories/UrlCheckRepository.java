@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UrlCheckRepository extends BaseRepository {
-    public static void saveCheck(UrlCheck urlCheck) throws SQLException {
+    public static void runCheck(UrlCheck urlCheck) throws SQLException {
         String sql = "INSERT INTO url_checks (status_code, title, h1, description, urlId, created_at)"
                 + "VALUES (?, ?, ?, ?, ?, ?)";
         try (var conn = dataSource.getConnection();
@@ -30,14 +30,14 @@ public class UrlCheckRepository extends BaseRepository {
         }
     }
 
-    public static List<UrlCheck> findCheckByUrlId(Long urlId) throws SQLException {
-        var sql = "SELECT * FROM url_checks WHERE urlId = ? ORDER BY 'created_at'";
+    public static List<UrlCheck> findChecksByUrlId(Long urlId) throws SQLException {
+        var sql = "SELECT * FROM url_checks WHERE urlId = ? ORDER BY 'created_at' DESC";
         List<UrlCheck> result = new ArrayList<>();
         try (var conn = dataSource.getConnection();
              var preparedStatement = conn.prepareStatement(sql)) {
             preparedStatement.setLong(1, urlId);
             var resultSet = preparedStatement.executeQuery();
-            if (resultSet.next()) {
+            while (resultSet.next()) {
                 var id = resultSet.getLong("id");
                 var statusCode = resultSet.getInt("status_code");
                 var title = resultSet.getString("title");

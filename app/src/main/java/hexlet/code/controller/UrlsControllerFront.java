@@ -28,7 +28,7 @@ public class UrlsControllerFront {
 
         Map<String, List<UrlCheck>> urlsCheckMap = new HashMap<>();
         for (var url : urlsList) {
-            urlsCheckMap.put(Long.toString(url.getId()), UrlCheckRepository.findCheckByUrlId(url.getId()));
+            urlsCheckMap.put(Long.toString(url.getId()), UrlCheckRepository.findChecksByUrlId(url.getId()));
 
         }
 
@@ -41,14 +41,14 @@ public class UrlsControllerFront {
     }
 
     public static void showUrlById(Context ctx) throws SQLException {
-        var id = ctx.pathParamAsClass("id", Long.class).get();
-        var url = UrlRepository.find(id).get();
+        var urlId = ctx.pathParamAsClass("id", Long.class).get();
+        var url = UrlRepository.find(urlId).get();
 //                    .orElseThrow(() -> new NotFoundResponse("Post not found"));
         var page = new UrlPage();
-        var urlsCheck = UrlCheckRepository.findCheckByUrlId(id);
+        var urlsCheck = UrlCheckRepository.findChecksByUrlId(urlId);
 
         page.setUrl(url);
-        page.setUrlCheck(urlsCheck);
+        page.setUrlChecks(urlsCheck);
 
         ctx.render("urls/showById.jte", Collections.singletonMap("page", page));
     }

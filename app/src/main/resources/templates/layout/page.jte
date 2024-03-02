@@ -32,11 +32,6 @@
         </div>
     </nav>
 
-    <div class="mx-auto p-4 py-md-5">
-        <main>
-            <a>Анализатор страниц </a>
-        </main>
-    </div>
     @if(page != null && page.getFlash() != null)
         <div class="alert alert-${page.getFlashType()}" role="alert">
             ${page.getFlash()}

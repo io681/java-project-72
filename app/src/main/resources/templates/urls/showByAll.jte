@@ -6,18 +6,41 @@
 @template.layout.page(
 page = page,
 content = @`
-    <h2>Сайты</h2>
-    @for(var url : page.getUrls())
-        <div>
-            <h4>${url.getId()}</h4>
-            <h4><a href="${NamedRoutes.showUrlById(url.getId())}">${url.getName()}</a></h4>
-            <h4>${TimestampFormatter.getTimeStampToString(url.getCreatedAt())}</h4>
+    <div class="container-lg mt-5">
+        <h1>Сайты</h1>
 
-        @if(!page.getUrlsCheckMap().get(Long.toString(url.getId())).isEmpty())
-            <h4>${page.getUrlsCheckMap().get(Long.toString(url.getId())).get(0).getStatusCode()}</h4>
-            <h4>${TimestampFormatter.getTimeStampToString(page.getUrlsCheckMap().get(Long.toString(url.getId())).get(0).getCreatedAt())}</h4>
-        @endif
-        </div>
-    @endfor
+        <table class="table table-bordered table-hover mt-3">
+            <thead>
+            <tr>
+                <th class="col-1">ID</th>
+                <th>Имя</th>
+                <th class="col-2">Последняя проверка</th>
+                <th class="col-1">Код ответа</th>
+            </tr>
+            </thead>
+            <tbody>
+            @if(page.getUrls() != null)
+                @for(var url : page.getUrls())
+                    <tr>
+                        <td>${url.getId()}</td>
+                        <td>
+                            <a href="${NamedRoutes.showUrlById(url.getId())}">${url.getName()}</a>
+                        </td>
+
+                        @if(!page.getUrlsCheckMap().get(Long.toString(url.getId())).isEmpty())
+                            <td>${page.getUrlsCheckMap().get(Long.toString(url.getId())).get(0).getStatusCode()}</td>
+                            <td>
+                                ${TimestampFormatter.getTimeStampToString(page.getUrlsCheckMap().get(Long.toString(url.getId())).get(0).getCreatedAt())}
+                            </td>
+                        @else
+                            <td></td>
+                            <td></td>
+                        @endif
+                    </tr>
+                @endfor
+            @endif
+            </tbody>
+        </table>
+    </div>
 `,
 )

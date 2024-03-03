@@ -43,7 +43,6 @@ public class UrlCheckRepository extends BaseRepository {
                 var title = resultSet.getString("title");
                 var h1 = resultSet.getString("h1");
                 var description = resultSet.getString("description");
-//                var urlId = resultSet.getLong("urlId");
                 var createdAt = resultSet.getTimestamp("created_at");
                 var urlCheck = new UrlCheck();
 
@@ -60,33 +59,4 @@ public class UrlCheckRepository extends BaseRepository {
             return result;
         }
     }
-
-//    public static UrlCheck findLastCheckByUrlId() throws SQLException {
-//        var sql = "SELECT * FROM url_checks ORDER BY 'created_at' LIMIT 1";
-//        try (var conn = dataSource.getConnection();
-//             var preparedStatement = conn.prepareStatement(sql)) {
-//            var resultSet = preparedStatement.executeQuery();
-//            var urlCheck = new UrlCheck();
-//
-//            if (resultSet.next()) {
-//                var id = resultSet.getLong("id");
-//                var statusCode = resultSet.getInt("status_code");
-//                var title = resultSet.getString("title");
-//                var h1 = resultSet.getString("h1");
-//                var description = resultSet.getString("description");
-//                var urlId = resultSet.getLong("urlId");
-//                var createdAt = resultSet.getTimestamp("created_at");
-//                urlCheck = new UrlCheck();
-//
-//                urlCheck.setId(id);
-//                urlCheck.setStatusCode(statusCode);
-//                urlCheck.setTitle(title);
-//                urlCheck.setH1(h1);
-//                urlCheck.setDescription(description);
-//                urlCheck.setUrlId(urlId);
-//                urlCheck.setCreatedAt(createdAt);
-//            }
-//            return urlCheck;
-//        }
-//    }
 }

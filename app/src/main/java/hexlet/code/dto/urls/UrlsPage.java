@@ -13,5 +13,5 @@ import java.util.Map;
 @Setter
 public class UrlsPage extends BasePage {
     private List<Url> urls;
-    private Map<String, List<UrlCheck>> urlsCheckMap;
+    private Map<String, UrlCheck> urlsCheckMap;
 }

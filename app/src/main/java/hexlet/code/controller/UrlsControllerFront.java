@@ -9,7 +9,6 @@ import io.javalin.http.Context;
 
 import java.sql.SQLException;
 import java.util.Collections;
-import java.util.List;
 import java.util.Map;
 import java.util.HashMap;
 
@@ -22,15 +21,19 @@ public class UrlsControllerFront {
     public static  void showAllUrls(Context ctx) throws SQLException {
         var urlsList = UrlRepository.getEntities();
         var page = new UrlsPage();
+
+        Map<String, UrlCheck> urlsCheckMap = new HashMap<>();
+
+        for (var url : urlsList) {
+            var checks = UrlCheckRepository.findChecksByUrlId(url.getId());
+            if (!checks.isEmpty()) {
+                urlsCheckMap.put(Long.toString(url.getId()), checks.get(checks.size() - 1));
+            }
+        }
+
         page.setUrls(urlsList);
         page.setFlash(ctx.consumeSessionAttribute("flash"));
         page.setFlashType(ctx.consumeSessionAttribute("flash-type"));
-
-        Map<String, List<UrlCheck>> urlsCheckMap = new HashMap<>();
-        for (var url : urlsList) {
-            urlsCheckMap.put(Long.toString(url.getId()), UrlCheckRepository.findChecksByUrlId(url.getId()));
-
-        }
 
         if (!urlsCheckMap.isEmpty()) {
             page.setUrlsCheckMap(urlsCheckMap);

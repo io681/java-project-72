@@ -27,11 +27,11 @@ content = @`
                             <a href="${NamedRoutes.showUrlById(url.getId())}">${url.getName()}</a>
                         </td>
 
-                        @if(!page.getUrlsCheckMap().get(Long.toString(url.getId())).isEmpty())
-                            <td>${page.getUrlsCheckMap().get(Long.toString(url.getId())).get(0).getStatusCode()}</td>
+                        @if(page.getUrlsCheckMap() != null && page.getUrlsCheckMap().get(Long.toString(url.getId())) != null)
                             <td>
-                                ${TimestampFormatter.getTimeStampToString(page.getUrlsCheckMap().get(Long.toString(url.getId())).get(0).getCreatedAt())}
+                                ${TimestampFormatter.getTimeStampToString(page.getUrlsCheckMap().get(Long.toString(url.getId())).getCreatedAt())}
                             </td>
+                            <td>${page.getUrlsCheckMap().get(Long.toString(url.getId())).getStatusCode()}</td>
                         @else
                             <td></td>
                             <td></td>

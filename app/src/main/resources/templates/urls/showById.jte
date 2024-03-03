@@ -29,14 +29,6 @@ content = @`
         </tbody>
     </table>
 
-    <div class="mb-3">
-        <h1>${page.getUrl().getId()}</h1>
-    </div>
-
-    <div class="mb-3">
-        ${page.getUrl().getName()}
-    </div>
-
     <h2>Проверки</h2>
     <form action="${NamedRoutes.checkPathById(page.getUrl().getId())}" method="post">
         <input type="submit" class="btn btn-primary" value="Запустить проверку" name="urlCheck"/>

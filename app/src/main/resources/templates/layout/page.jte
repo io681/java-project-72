@@ -14,29 +14,37 @@
               crossorigin="anonymous">
         <title>Hexlet project Анализатор страниц</title>
     </head>
-    <body>
-
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="${NamedRoutes.rootPath()}">Анализатор страниц</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <div class="navbar-nav">
-                    <a class="nav-link" href="${NamedRoutes.rootPath()}">Главная</a>
-                    <a class="nav-link" href="${NamedRoutes.allUrlsPath()}">Сайты</a>
+    <body class="d-flex flex-column min-vh-100">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="${NamedRoutes.rootPath()}">Анализатор страниц</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <div class="navbar-nav">
+                        <a class="nav-link" href="${NamedRoutes.rootPath()}">Главная</a>
+                        <a class="nav-link" href="${NamedRoutes.allUrlsPath()}">Сайты</a>
+                    </div>
                 </div>
             </div>
-        </div>
-    </nav>
-
+        </nav>
     @if(page != null && page.getFlash() != null)
         <div class="alert alert-${page.getFlashType()}" role="alert">
             ${page.getFlash()}
         </div>
     @endif
-    ${content}
+        <main class="flex-grow-1">
+            ${content}
+        </main>
+        <footer class="footer border-top py-3 mt-5 bg-light">
+            <div class="container-xl">
+                <div class="text-center">
+                    created by
+                    <a href="https://github.com/io681" target="_blank">io681</a>
+                </div>
+            </div>
+        </footer>
     </body>
 </html>

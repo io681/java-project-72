@@ -6,41 +6,43 @@
 @template.layout.page(
 page = page,
 content = @`
-    <div class="container-lg mt-5">
-        <h1>Сайты</h1>
+    <section>
+        <div class="container-lg mt-5">
+            <h1>Сайты</h1>
 
-        <table class="table table-bordered table-hover mt-3">
-            <thead>
-            <tr>
-                <th class="col-1">ID</th>
-                <th>Имя</th>
-                <th class="col-2">Последняя проверка</th>
-                <th class="col-1">Код ответа</th>
-            </tr>
-            </thead>
-            <tbody>
-            @if(page.getUrls() != null)
-                @for(var url : page.getUrls())
-                    <tr>
-                        <td>${url.getId()}</td>
-                        <td>
-                            <a href="${NamedRoutes.showUrlById(url.getId())}">${url.getName()}</a>
-                        </td>
-
-                        @if(page.getUrlsCheckMap() != null && page.getUrlsCheckMap().get(Long.toString(url.getId())) != null)
+            <table class="table table-bordered table-hover mt-3">
+                <thead>
+                <tr>
+                    <th class="col-1">ID</th>
+                    <th>Имя</th>
+                    <th class="col-2">Последняя проверка</th>
+                    <th class="col-1">Код ответа</th>
+                </tr>
+                </thead>
+                <tbody>
+                @if(page.getUrls() != null)
+                    @for(var url : page.getUrls())
+                        <tr>
+                            <td>${url.getId()}</td>
                             <td>
-                                ${TimestampFormatter.getTimeStampToString(page.getUrlsCheckMap().get(Long.toString(url.getId())).getCreatedAt())}
+                                <a href="${NamedRoutes.showUrlById(url.getId())}">${url.getName()}</a>
                             </td>
-                            <td>${page.getUrlsCheckMap().get(Long.toString(url.getId())).getStatusCode()}</td>
-                        @else
-                            <td></td>
-                            <td></td>
-                        @endif
-                    </tr>
-                @endfor
-            @endif
-            </tbody>
-        </table>
-    </div>
+
+                            @if(page.getUrlsCheckMap() != null && page.getUrlsCheckMap().get(Long.toString(url.getId())) != null)
+                                <td>
+                                    ${TimestampFormatter.getTimeStampToString(page.getUrlsCheckMap().get(Long.toString(url.getId())).getCreatedAt())}
+                                </td>
+                                <td>${page.getUrlsCheckMap().get(Long.toString(url.getId())).getStatusCode()}</td>
+                            @else
+                                <td></td>
+                                <td></td>
+                            @endif
+                        </tr>
+                    @endfor
+                @endif
+                </tbody>
+            </table>
+        </div>
+    </section>
 `,
 )

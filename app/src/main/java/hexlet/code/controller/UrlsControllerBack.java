@@ -54,16 +54,17 @@ public class UrlsControllerBack {
         Long id = ctx.pathParamAsClass("id", Long.class).get();
         Url url = UrlRepository.find(id).get();
 
-        int statusCode = Unirest.get(url.getName()).asJson().getStatus();
-        String bodyByUrl = Unirest.get(url.getName()).asString().getBody();
+        var responseString = Unirest.get(url.getName()).asString();
+        int statusCode = responseString.getStatus();
+        String bodyByUrl = responseString.getBody();
 
         Document doc = Jsoup.parse(bodyByUrl);
         String title = doc.title();
-        String h1 = "";
+        String h1;
         try {
-            h1 = doc.selectFirst("h1").toString();
+            h1 = doc.selectFirst("h1").text();
         } catch (NullPointerException exc) {
-            h1 = "empty h1";
+            h1 = "";
         }
         //здесь бывает null
         String description = doc.selectFirst("meta[name=description ]").attr("content");

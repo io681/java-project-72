@@ -28,10 +28,12 @@ dependencies {
     implementation("io.javalin:javalin-rendering:5.6.2")
     implementation("com.konghq:unirest-java:3.14.5")
     implementation ("org.jsoup:jsoup:1.17.2")
+    implementation("com.squareup.okhttp3:okhttp:4.9.3")
 
     testImplementation("org.assertj:assertj-core:3.24.2")
     testImplementation(platform("org.junit:junit-bom:5.9.1"))
     testImplementation("org.junit.jupiter:junit-jupiter")
+    testImplementation("com.squareup.okhttp3:mockwebserver:4.9.3")
 }
 
 tasks.test {

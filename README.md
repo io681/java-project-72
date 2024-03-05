@@ -9,3 +9,10 @@
 
 ### Codeclimate Test Coverage:
 [![Test Coverage](https://api.codeclimate.com/v1/badges/5ae2ed4efca99d8d591e/test_coverage)](https://codeclimate.com/github/io681/java-project-72/test_coverage)
+
+
+###Desription
+WEB-приложение "Анализатор страниц".
+Проверка сайтов c небольшим SEO-анализом.
+
+Проект задеплоен на render.com - ссылка <https://java-project-72-ghwh.onrender.com/>

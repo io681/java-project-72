@@ -6,6 +6,7 @@ import hexlet.code.models.UrlCheck;
 import hexlet.code.repositories.UrlCheckRepository;
 import hexlet.code.repositories.UrlRepository;
 import io.javalin.http.Context;
+import io.javalin.http.NotFoundResponse;
 
 import java.sql.SQLException;
 import java.util.Collections;
@@ -45,8 +46,8 @@ public class UrlsControllerFront {
 
     public static void showUrlById(Context ctx) throws SQLException {
         var urlId = ctx.pathParamAsClass("id", Long.class).get();
-        var url = UrlRepository.find(urlId).get();
-//                    .orElseThrow(() -> new NotFoundResponse("Post not found"));
+        var url = UrlRepository.find(urlId)
+                    .orElseThrow(() -> new NotFoundResponse("urlId not found"));
         var page = new UrlPage();
         var urlsCheck = UrlCheckRepository.findChecksByUrlId(urlId);
 

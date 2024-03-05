@@ -60,14 +60,20 @@ public class UrlsControllerBack {
 
         Document doc = Jsoup.parse(bodyByUrl);
         String title = doc.title();
+
         String h1;
         try {
             h1 = doc.selectFirst("h1").text();
         } catch (NullPointerException exc) {
             h1 = "";
         }
-        //здесь бывает null
-        String description = doc.selectFirst("meta[name=description ]").attr("content");
+
+        String description;
+        try {
+            description = doc.selectFirst("meta[name=description ]").attr("content");
+        } catch (NullPointerException exc) {
+            description = "";
+        }
 
         var urlCheckModel = new UrlCheck();
 

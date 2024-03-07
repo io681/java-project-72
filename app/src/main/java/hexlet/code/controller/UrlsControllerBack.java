@@ -4,9 +4,9 @@ import hexlet.code.models.Url;
 import hexlet.code.models.UrlCheck;
 import hexlet.code.repositories.UrlCheckRepository;
 import hexlet.code.repositories.UrlRepository;
-import hexlet.code.utils.TimestampFormatter;
 import io.javalin.http.Context;
 import io.javalin.validation.ValidationException;
+import kong.unirest.HttpResponse;
 import kong.unirest.Unirest;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -53,13 +53,41 @@ public class UrlsControllerBack {
     public static void checkUrl(Context ctx) throws SQLException {
         Long id = ctx.pathParamAsClass("id", Long.class).get();
         Url url = UrlRepository.find(id).get();
+        HttpResponse<String> responseString = null;
 
-        var responseString = Unirest.get(url.getName()).asString();
-        int statusCode = responseString.getStatus();
-        String bodyByUrl = responseString.getBody();
+        try {
+            responseString = Unirest.get(url.getName()).asString();
+        } catch (Exception exc) {
+            ctx.sessionAttribute("flash", "Ресурс недоступен");
+            ctx.sessionAttribute("flash-type", "danger");
+            ctx.redirect("/urls/{id}");
+        }
 
-        Document doc = Jsoup.parse(bodyByUrl);
-        String title = doc.title();
+        int statusCode;
+        try {
+            statusCode = responseString.getStatus();
+        } catch (NullPointerException exc) {
+            statusCode = 404;
+        }
+
+        String bodyByUrl = null;
+        try {
+            bodyByUrl = responseString.getBody();
+        } catch (NullPointerException exc) {
+            ctx.redirect("/urls/{id}");
+        }
+
+        Document doc = null;
+        if (bodyByUrl != null) {
+            doc = Jsoup.parse(bodyByUrl);
+        }
+
+        String title;
+        try {
+            title = doc.title();
+        } catch (NullPointerException exc) {
+            title = "";
+        }
 
         String h1;
         try {
@@ -82,7 +110,7 @@ public class UrlsControllerBack {
         urlCheckModel.setH1(h1);
         urlCheckModel.setDescription(description);
         urlCheckModel.setUrlId(url.getId());
-        urlCheckModel.setCreatedAt(TimestampFormatter.getCurrentTimeStamp());
+        urlCheckModel.setCreatedAt(getCurrentTimeStamp());
 
         UrlCheckRepository.runCheck(urlCheckModel);
 

@@ -29,6 +29,12 @@ content = @`
         </tbody>
     </table>
 
+    @if(page != null && page.getFlash() != null)
+        <div class="alert alert-${page.getFlashType()}" role="alert">
+            ${page.getFlash()}
+        </div>
+    @endif
+
     <h2>Проверки</h2>
     <form action="${NamedRoutes.checkPathById(page.getUrl().getId())}" method="post">
         <input type="submit" class="btn btn-primary" value="Запустить проверку" name="urlCheck"/>

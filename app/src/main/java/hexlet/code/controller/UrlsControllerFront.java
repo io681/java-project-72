@@ -59,6 +59,9 @@ public class UrlsControllerFront {
         page.setUrl(url);
         page.setUrlChecks(urlsCheck);
 
+        page.setFlash(ctx.consumeSessionAttribute("flash"));
+        page.setFlashType(ctx.consumeSessionAttribute("flash-type"));
+
         ctx.render("urls/showById.jte", Collections.singletonMap("page", page));
     }
 }

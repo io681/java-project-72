@@ -128,12 +128,12 @@ public class AppTest {
         UrlCheck urlCheck = urlCheckList.get(0);
 
         assertEquals(1L, urlCheck.getId(), "Not Valid UrlCheckId");
-        assertEquals(200, urlCheck.getStatusCode(), "Not Valid UrlCheckId");
+        assertEquals(200, urlCheck.getStatusCode(), "Not Valid Status Code");
 
-        var expectedTitle = "Software Engineering Intelligence | Code Climate";
+        var expectedTitle = "Тестовый Title Code Climat";
         assertEquals(expectedTitle, urlCheck.getTitle(), "Not Valid Title");
 
-        var expectedH1 = "Trusted engineering insights for maximum business impact";
+        var expectedH1 = "Тестовый H1 Code Climat";
         assertEquals(expectedH1, urlCheck.getH1(), "Not Valid H1");
 
         var expectedDescription = "Code Climate's industry-leading Software Engineering Intelligence platform"

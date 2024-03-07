@@ -74,7 +74,7 @@ public class AppTest {
             assertEquals(200, response.code(), "Not valid Code");
             var expectedNameUrl = "https://getbootstrap.com";
             assertTrue(response.body().string().contains(expectedNameUrl), "Not Created");
-            assertTrue(UrlRepository.findByName(expectedNameUrl).isPresent(),"Url not found in DB after created");
+            assertTrue(UrlRepository.findByName(expectedNameUrl).isPresent(), "Url not found in DB after created");
         });
     }
 

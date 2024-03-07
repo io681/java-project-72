@@ -31,7 +31,7 @@ public class UrlCheckRepository extends BaseRepository {
     }
 
     public static List<UrlCheck> findChecksByUrlId(Long urlId) throws SQLException {
-        final var sql = "SELECT * FROM url_checks WHERE urlId = ? ORDER BY created_at";
+        final var sql = "SELECT * FROM url_checks WHERE url_Id = ? ORDER BY created_at";
         List<UrlCheck> result = new ArrayList<>();
         try (var conn = dataSource.getConnection();
              var preparedStatement = conn.prepareStatement(sql)) {

@@ -1,3 +1,6 @@
+@import hexlet.code.dto.BasePage
+@param BasePage page = null
+
 @template.layout.page(
 content = @`
     <section>
@@ -25,5 +28,10 @@ content = @`
             </div>
         </div>
     </section>
+    @if(page != null && page.getFlash() != null)
+        <div class="alert alert-${page.getFlashType()}" role="alert">
+            ${page.getFlash()}
+        </div>
+    @endif
 `
 )

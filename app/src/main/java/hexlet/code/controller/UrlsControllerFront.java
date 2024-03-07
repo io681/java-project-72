@@ -1,5 +1,6 @@
 package hexlet.code.controller;
 
+import hexlet.code.dto.BasePage;
 import hexlet.code.dto.urls.UrlPage;
 import hexlet.code.dto.urls.UrlsPage;
 import hexlet.code.models.UrlCheck;
@@ -17,7 +18,11 @@ import java.util.HashMap;
 public class UrlsControllerFront {
 
     public static void showMainPage(Context ctx) {
-        ctx.render("index.jte");
+        BasePage page = new BasePage();
+        page.setFlash(ctx.consumeSessionAttribute("flash"));
+        page.setFlashType(ctx.consumeSessionAttribute("flash-type"));
+
+        ctx.render("index.jte", Collections.singletonMap("page", page));
     }
     public static  void showAllUrls(Context ctx) throws SQLException {
         var urlsList = UrlRepository.getEntities();

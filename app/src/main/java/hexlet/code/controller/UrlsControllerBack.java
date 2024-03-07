@@ -46,7 +46,7 @@ public class UrlsControllerBack {
                  | ValidationException | MalformedURLException | URISyntaxException e) {
             ctx.sessionAttribute("flash", "Некорректный URL");
             ctx.sessionAttribute("flash-type", "danger");
-            ctx.redirect("/urls");
+            ctx.redirect("/");
         }
     }
 

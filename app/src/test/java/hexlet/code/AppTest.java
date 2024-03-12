@@ -3,7 +3,6 @@ package hexlet.code;
 import hexlet.code.models.Url;
 import hexlet.code.models.UrlCheck;
 import hexlet.code.repositories.UrlCheckRepository;
-import hexlet.code.utils.TimestampFormatter;
 import hexlet.code.repositories.UrlRepository;
 import io.javalin.Javalin;
 import io.javalin.testtools.JavalinTest;
@@ -20,7 +19,6 @@ import java.nio.file.Paths;
 import java.sql.SQLException;
 import java.util.List;
 
-import static hexlet.code.utils.TimestampFormatter.getCurrentTimeStamp;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -58,8 +56,8 @@ public class AppTest {
     }
     @Test
     public void testUrlPage() throws SQLException {
-        var url = new Url("https://docs.oracle.com/en/java/javase/20/docs/api/java.base/java/net/URI.html#toURL()",
-                getCurrentTimeStamp());
+        var urlName = "https://docs.oracle.com/en/java/javase/20/docs/api/java.base/java/net/URI.html#toURL()";
+        var url = new Url(urlName);
         UrlRepository.save(url);
         JavalinTest.test(app, (server, client) -> {
             var response = client.get("/urls/" + url.getId());
@@ -90,7 +88,7 @@ public class AppTest {
     @Test
     public void testCreateUrlIfExist() throws SQLException {
         var urlName = "https://getbootstrap.com/docs/5.3/examples/";
-        Url urlModel = new Url(urlName, TimestampFormatter.getCurrentTimeStamp());
+        Url urlModel = new Url(urlName);
         UrlRepository.save(urlModel);
         var urlModelAfterSave = UrlRepository.findByName(urlName).get();
 
@@ -114,7 +112,7 @@ public class AppTest {
         mockWebServer.enqueue(mockResponse);
         HttpUrl mockHttpUrl = mockWebServer.url("/test");
 
-        var urlModel = new Url(mockHttpUrl.toString(), TimestampFormatter.getCurrentTimeStamp());
+        var urlModel = new Url(mockHttpUrl.toString());
         UrlRepository.save(urlModel);
 
         JavalinTest.test(app, (server, client) -> {

@@ -7,20 +7,28 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import static hexlet.code.utils.TimestampFormatter.getCurrentTimeStamp;
+
 public class UrlCheckRepository extends BaseRepository {
-    public static void runCheck(UrlCheck urlCheck) throws SQLException {
+    public static void saveCheck(UrlCheck urlCheck) throws SQLException {
         String sql = "INSERT INTO url_checks (status_code, title, h1, description, url_Id, created_at)"
                 + "VALUES (?, ?, ?, ?, ?, ?)";
         try (var conn = dataSource.getConnection();
              var preparedStatement = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+            var currentTimeStamp = getCurrentTimeStamp();
+
             preparedStatement.setInt(1, urlCheck.getStatusCode());
             preparedStatement.setString(2, urlCheck.getTitle());
             preparedStatement.setString(3, urlCheck.getH1());
             preparedStatement.setString(4, urlCheck.getDescription());
             preparedStatement.setLong(5, urlCheck.getUrlId());
-            preparedStatement.setTimestamp(6, urlCheck.getCreatedAt());
+            preparedStatement.setTimestamp(6, currentTimeStamp);
             preparedStatement.executeUpdate();
+
+            urlCheck.setCreatedAt(currentTimeStamp);
+
             var generatedKeys = preparedStatement.getGeneratedKeys();
+
             // Устанавливаем ID в сохраненную сущность
             if (generatedKeys.next()) {
                 urlCheck.setId(generatedKeys.getLong(1));

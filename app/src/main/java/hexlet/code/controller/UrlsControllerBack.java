@@ -17,8 +17,6 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.sql.SQLException;
 
-import static hexlet.code.utils.TimestampFormatter.getCurrentTimeStamp;
-
 public class UrlsControllerBack {
     public static void createUrl(Context ctx) throws SQLException {
 
@@ -36,7 +34,7 @@ public class UrlsControllerBack {
                 ctx.sessionAttribute("flash-type", "danger");
                 ctx.redirect("/urls");
             } else {
-                var urlModel = new Url(urlNormalized, getCurrentTimeStamp());
+                var urlModel = new Url(urlNormalized);
                 UrlRepository.save(urlModel);
                 ctx.sessionAttribute("flash", "Страница успешно добавлена");
                 ctx.sessionAttribute("flash-type", "success");
@@ -110,9 +108,8 @@ public class UrlsControllerBack {
         urlCheckModel.setH1(h1);
         urlCheckModel.setDescription(description);
         urlCheckModel.setUrlId(url.getId());
-        urlCheckModel.setCreatedAt(getCurrentTimeStamp());
 
-        UrlCheckRepository.runCheck(urlCheckModel);
+        UrlCheckRepository.saveCheck(urlCheckModel);
 
         ctx.redirect("/urls/" + id);
     }

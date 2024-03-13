@@ -46,29 +46,6 @@ content = @`
                     @endfor
                 @endif
                 </tbody>
-
-<%--                <tbody>--%>
-<%--                @if(page.getUrls() != null)--%>
-<%--                    @for(var url : page.getUrls())--%>
-<%--                        <tr>--%>
-<%--                            <td>${url.getId()}</td>--%>
-<%--                            <td>--%>
-<%--                                <a href="${NamedRoutes.showUrlById(url.getId())}">${url.getName()}</a>--%>
-<%--                            </td>--%>
-
-<%--                            @if(page.getUrlsCheckMap() != null && page.getUrlsCheckMap().get(Long.toString(url.getId())) != null)--%>
-<%--                                <td>--%>
-<%--                                    ${TimestampFormatter.getTimeStampToString(page.getUrlsCheckMap().get(Long.toString(url.getId())).getCreatedAt())}--%>
-<%--                                </td>--%>
-<%--                                <td>${page.getUrlsCheckMap().get(Long.toString(url.getId())).getStatusCode()}</td>--%>
-<%--                            @else--%>
-<%--                                <td></td>--%>
-<%--                                <td></td>--%>
-<%--                            @endif--%>
-<%--                        </tr>--%>
-<%--                    @endfor--%>
-<%--                @endif--%>
-<%--                </tbody>--%>
             </table>
         </div>
     </section>

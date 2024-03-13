@@ -79,8 +79,6 @@ public class UrlCheckRepository extends BaseRepository {
 
         try (var conn = dataSource.getConnection();
              var preparedStatement = conn.prepareStatement(sql)) {
-            var urlCheck = new UrlCheck();
-            var url = new Url("");
             Map<Url, UrlCheck> dataLastCheckForEachUrl = new HashMap<>();
 
             var resultSet = preparedStatement.executeQuery();
@@ -90,6 +88,9 @@ public class UrlCheckRepository extends BaseRepository {
                 var name = resultSet.getString("name");
                 var createdAt = resultSet.getTimestamp("last_created_at");
                 var statusCode = resultSet.getInt("status_code");
+
+                var urlCheck = new UrlCheck();
+                var url = new Url("");
 
                 url.setId(id);
                 url.setName(name);

@@ -4,8 +4,6 @@ import hexlet.code.models.Url;
 
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 import static hexlet.code.utils.TimestampFormatter.getCurrentTimeStamp;
@@ -68,25 +66,6 @@ public class UrlRepository extends BaseRepository {
                 return Optional.of(url);
             }
             return Optional.empty();
-        }
-    }
-
-    public static List<Url> getEntities() throws SQLException {
-        var sql = "SELECT * FROM urls";
-        try (var conn = dataSource.getConnection();
-             var preparedStatement = conn.prepareStatement(sql)) {
-            var resultSet = preparedStatement.executeQuery();
-            var result = new ArrayList<Url>();
-            while (resultSet.next()) {
-                var id = resultSet.getLong("id");
-                var name = resultSet.getString("name");
-                var createdAt = resultSet.getTimestamp("created_at");
-                var url = new Url(name);
-                url.setId(id);
-                url.setCreatedAt(createdAt);
-                result.add(url);
-            }
-            return result;
         }
     }
 }

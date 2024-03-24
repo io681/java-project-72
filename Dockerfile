@@ -17,7 +17,7 @@ COPY /app .
 RUN gradle installDist
 
 #ENV JAVA_OPTS "-Xmx512M -Xms512M"
-EXPOSE 7070
+# EXPOSE 7070
 
 #CMD java -jar build/libs/app-1.0-SNAPSHOT.jar
 CMD ./build/install/app/bin/app
